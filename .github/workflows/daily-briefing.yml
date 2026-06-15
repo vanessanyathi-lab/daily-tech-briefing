@@ -1,14 +1,26 @@
-name: Daily Tech Briefing
+name: Daily Tech Briefing Email
 
 on:
   schedule:
-    - cron: "0 7 * * *"
+    # Runs every day at 05:00 UTC.
+    # Zimbabwe is UTC+2, so this is 07:00 in Zimbabwe.
+    - cron: "0 5 * * *"
+
   workflow_dispatch:
 
 jobs:
   send-briefing:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
+      EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+      EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+      EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      MAX_TOTAL_ARTICLES: ${{ secrets.MAX_TOTAL_ARTICLES }}
 
     steps:
       - name: Checkout repository
@@ -17,20 +29,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Send briefing
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
-          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-          EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
-          MAX_ARTICLES_PER_CATEGORY: "5"
-          ARTICLE_LOOKBACK_HOURS: "36"
-        run: python -m src.main
+      - name: Run daily briefing script
+        run: |
+          python -m src.main
