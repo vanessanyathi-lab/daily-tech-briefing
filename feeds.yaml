@@ -1,0 +1,40 @@
+ai:
+  - name: MIT Technology Review AI
+    url: https://www.technologyreview.com/feed/
+  - name: Google AI Blog
+    url: https://blog.google/technology/ai/rss/
+cybersecurity:
+  - name: The Hacker News
+    url: https://feeds.feedburner.com/TheHackersNews
+  - name: Krebs on Security
+    url: https://krebsonsecurity.com/feed/
+cloud_computing:
+  - name: AWS News Blog
+    url: https://aws.amazon.com/blogs/aws/feed/
+  - name: Google Cloud Blog
+    url: https://cloudblog.withgoogle.com/rss/
+software_engineering:
+  - name: GitHub Blog Engineering
+    url: https://github.blog/engineering/feed/
+  - name: InfoQ
+    url: https://feed.infoq.com/
+startups:
+  - name: TechCrunch Startups
+    url: https://techcrunch.com/category/startups/feed/
+  - name: Y Combinator Blog
+    url: https://www.ycombinator.com/blog/rss
+networking:
+  - name: Cisco Blogs
+    url: https://blogs.cisco.com/feed
+  - name: Packet Pushers
+    url: https://packetpushers.net/feed/
+fintech:
+  - name: Finextra
+    url: https://www.finextra.com/rss/headlines.aspx
+  - name: The Fintech Times
+    url: https://thefintechtimes.com/feed/
+data_science:
+  - name: Towards Data Science
+    url: https://towardsdatascience.com/feed
+  - name: KDnuggets
+    url: https://www.kdnuggets.com/feed
